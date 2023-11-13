@@ -28,6 +28,17 @@ export default function HomeScreen(props) {
     };
   };
 
+  const exportData = ( ) => {
+    var data = new Blob([JSON.stringify(clients.array)], {type: 'text/plain'});
+  
+    var down = document.createElement("a");
+
+    down.download = "users.json";
+    down.href =  window.URL.createObjectURL(data);
+
+    down.click( );
+  };
+
   const style = {
     display: "flex",
     justifyContent: "space-between"
@@ -88,6 +99,10 @@ export default function HomeScreen(props) {
             <span>Total</span>
             <span>{infos.totalClients}</span>
           </div>
+        </div>
+
+        <div onClick={exportData}>
+          <span>Exportar</span>
         </div>
       </div>
     </Frame>
