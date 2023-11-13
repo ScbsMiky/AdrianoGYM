@@ -101,8 +101,8 @@ export default function HomeScreen(props) {
           </div>
         </div>
 
-        <div onClick={exportData}>
-          <span>Exportar</span>
+        <div onClick={exportData} style={{ display: "flex", alignItems: "center", justifyContent: "center", marginTop: "2rem" }}>
+          <span style={{ background: "#ffffff", padding: ".5rem 2rem", borderRadius: "1rem" }}>Exportar</span>
         </div>
       </div>
     </Frame>
