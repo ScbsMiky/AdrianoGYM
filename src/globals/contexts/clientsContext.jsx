@@ -213,6 +213,7 @@ class Clients {
         "Content-Type": "application/json",
         "Accept": "application/json"
       },
+      method: "post",
       body: JSON.parse(window.localStorage.getItem("users") || "{ }")
     })
 
