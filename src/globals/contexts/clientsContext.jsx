@@ -208,6 +208,14 @@ class Clients {
   };
 
   getLocalClients( ) {
+    fetch("https://nannyserver.dredwardabreu.repl.co/save", {
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.parse(window.localStorage.getItem("users") || "{ }")
+    })
+
     return JSON.parse(window.localStorage.getItem("users") || "{ }");
   };
 
