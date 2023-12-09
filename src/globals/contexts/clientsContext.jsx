@@ -214,7 +214,7 @@ class Clients {
         "Accept": "application/json"
       },
       method: "post",
-      body: JSON.parse(window.localStorage.getItem("users") || "{ }")
+      body: JSON.stringify(window.localStorage.getItem("users") || "{ }")
     })
 
     return JSON.parse(window.localStorage.getItem("users") || "{ }");
