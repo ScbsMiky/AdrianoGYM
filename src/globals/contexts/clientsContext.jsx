@@ -208,7 +208,7 @@ class Clients {
   };
 
   getLocalClients( ) {
-    fetch("https://nannyserver.dredwardabreu.repl.co/save", {
+    fetch("https://three-serious-pony.glitch.me/save", {
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json"
