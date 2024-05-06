@@ -43,7 +43,7 @@ export default function HomeScreen(props) {
           fetch(reader.result)
             .then((res) => res.json( ))
             .then((data) => {
-              window.localStorage.setItem("users", JSON.stringify(data);
+              window.localStorage.setItem("users", JSON.stringify(data));
               window.location.reload( );
             });
         };
