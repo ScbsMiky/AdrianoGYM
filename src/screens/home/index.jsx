@@ -28,15 +28,30 @@ export default function HomeScreen(props) {
     };
   };
 
-  const exportData = ( ) => {
-    var data = new Blob([JSON.stringify(clients.array)], {type: 'text/plain'});
+  const importData = ( ) => {
+     const input = document.createElement("input");
+    
+      input.type = "file";
+      input.accept = "application/json";
   
-    var down = document.createElement("a");
+      input.onchange = ( ) => {
+        if(!input.files[0]) return;
+    
+        const reader = new FileReader( );
+  
+        reader.onloadend = ( ) => {
+          fetch(reader.result)
+            .then((res) => res.json( ))
+            .then((data) => {
+              window.localStorage.setItem("users", JSON.stringify(data);
+              window.location.reload( );
+            });
+        };
+  
+        reader.readAsDataURL(input.files[0]);
+      };
 
-    down.download = "users.json";
-    down.href =  window.URL.createObjectURL(data);
-
-    down.click( );
+    input.click( );
   };
 
   const style = {
@@ -101,8 +116,8 @@ export default function HomeScreen(props) {
           </div>
         </div>
 
-        <div onClick={exportData} style={{ display: "flex", alignItems: "center", justifyContent: "center", marginTop: "2rem" }}>
-          <span style={{ background: "#ffffff", padding: ".5rem 2rem", borderRadius: "1rem" }}>Exportar</span>
+        <div onClick={importData} style={{ display: "flex", alignItems: "center", justifyContent: "center", marginTop: "2rem" }}>
+          <span style={{ background: "#ffffff", padding: ".5rem 2rem", borderRadius: "1rem" }}>Importar</span>
         </div>
       </div>
     </Frame>
