@@ -28,6 +28,17 @@ export default function HomeScreen(props) {
     };
   };
 
+  const exportData = ( ) => {
+    var data = new Blob([JSON.stringify(clients.array)], {type: 'text/plain'});
+  
+    var down = document.createElement("a");
+
+    down.download = "users.json";
+    down.href =  window.URL.createObjectURL(data);
+
+    down.click( );
+  };
+
   const importData = ( ) => {
      const input = document.createElement("input");
     
@@ -118,6 +129,10 @@ export default function HomeScreen(props) {
 
         <div onClick={importData} style={{ display: "flex", alignItems: "center", justifyContent: "center", marginTop: "2rem" }}>
           <span style={{ background: "#ffffff", padding: ".5rem 2rem", borderRadius: "1rem" }}>Importar</span>
+        </div>
+
+        <div onClick={exportData} style={{ display: "flex", alignItems: "center", justifyContent: "center", marginTop: "2rem" }}>
+          <span style={{ background: "#ffffff", padding: ".5rem 2rem", borderRadius: "1rem" }}>Exportar</span>
         </div>
       </div>
     </Frame>
