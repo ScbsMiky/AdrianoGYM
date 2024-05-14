@@ -10,37 +10,9 @@ import { useContext, useEffect, useState } from "react";
 
 import Clients, { clients } from "./globals/contexts/clientsContext";
 
-function verifyClients(clients) {
-  let value = 0;
-  let payments = 0;
-
-  let initial = new Date( );
-
-  initial = new Date(initial.getFullYear( ), initial.getMonth( ), initial.getDate( ));
-
-  let debit = clients.filter((client) => {
-    let total = client.payments.reduce((total, { price, open, date }) => {
-      if(open) {
-        total += 1;
-        payments += 1;
-        value += price;
-      };
-
-      return total;
-    }, 0);
-
-    return !!total;
-  });
-
-  return (
-    `Existem <b>${debit.length}</b> clientes em debito` +
-    `<br />Existem <b>${payments}</b> contas em aberto` +
-    `<br />A divida de seus clientes e de <b>${value.toLocaleString("pt-br", { currency: "brl", style: "currency" })}</b>`
-  );
-};
-
 export default function App( ) {
   const [myClients] = useState(clients);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [welcomeMessage, setWelcomeMessage] = useState({
     message: "",
@@ -48,11 +20,19 @@ export default function App( ) {
   });
 
   useEffect(( ) => {
-    setWelcomeMessage({
-      message: verifyClients(myClients.array),
-      closed: welcomeMessage.closed
-    });
+    myClients.fetchCustumers( )
+      .then(( ) => setIsLoading(false));
   }, [ ]);
+
+  if(isLoading) {
+    return (
+      <Container>
+        <GlobalStyle />
+
+        <div class="main-loading"></div>
+      </Container>
+    );
+  };
 
   return (
     <Clients.Provider value={myClients}>
