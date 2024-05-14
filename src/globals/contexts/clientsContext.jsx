@@ -24,8 +24,6 @@ class Clients {
       let lastPaymentDate = new Moment(lastPayment.date);
       lastPaymentDate.resetTimestamp( );
 
-      console.log({ date: date.toLocaleString( ), lastPayment: lastPaymentDate.toLocaleString( )})
-
       lastPaymentDate = lastPaymentDate.getAfterDays(30);
 
       console.log({ date: date.toLocaleString( ), lastPayment: lastPaymentDate.toLocaleString( )})
@@ -207,21 +205,37 @@ class Clients {
     return this.cache[data.id];
   };
 
+  fetchCustumers( ) {
+    return fetch("https://three-serious-pony.glitch.me/get-items")
+      .then((res) => res.json())
+      .then((users) => {
+        window.localStorage.setItem("users-2", JSON.stringify(users));
+        
+        return users;
+      });
+  };
+
   getLocalClients( ) {
-    fetch("https://three-serious-pony.glitch.me/save", {
+    fetch("https://three-serious-pony.glitch.me/get-items")
+      .then((res) => res.json())
+      .then((users) => {
+        
+      });
+
+    return JSON.parse(window.localStorage.getItem("users-2") || "{ }");
+  };
+
+  saveClients( ) {
+    fetch("https://three-serious-pony.glitch.me/save-items", {
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json"
       },
       method: "post",
       body: (window.localStorage.getItem("users") || "{ }")
-    })
-
-    return JSON.parse(window.localStorage.getItem("users") || "{ }");
-  };
-
-  saveClients( ) {
-    window.localStorage.setItem("users", JSON.stringify(this.cache));
+    });
+    
+    window.localStorage.setItem("users-2", JSON.stringify(this.cache));
   };
 
   getNewClients( ) {
