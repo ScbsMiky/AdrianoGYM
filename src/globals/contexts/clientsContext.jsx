@@ -216,12 +216,6 @@ class Clients {
   };
 
   getLocalClients( ) {
-    fetch("https://three-serious-pony.glitch.me/get-items")
-      .then((res) => res.json())
-      .then((users) => {
-        
-      });
-
     return JSON.parse(window.localStorage.getItem("users-2") || "{ }");
   };
 
