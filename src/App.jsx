@@ -22,8 +22,8 @@ export default function App( ) {
   useEffect(( ) => {
     clients.fetchCustumers( )
       .then(( ) => {
-        console.log(clients);
-        console.log(myClients);
+        console.log(clients.cache["702270566225"]);
+        console.log(myClients.cache["702270566225"]);
         setMyClients(clients);
         setIsLoading(false);
       });
