@@ -11,7 +11,7 @@ import { useContext, useEffect, useState } from "react";
 import Clients, { clients } from "./globals/contexts/clientsContext";
 
 export default function App( ) {
-  const [myClients] = useState(clients);
+  const [myClients, setMyClients] = useState(clients);
   const [isLoading, setIsLoading] = useState(true);
 
   const [welcomeMessage, setWelcomeMessage] = useState({
@@ -21,7 +21,11 @@ export default function App( ) {
 
   useEffect(( ) => {
     myClients.fetchCustumers( )
-      .then(( ) => setIsLoading(false));
+      .then(( ) => {
+        clients.cache = myClients.cache;
+        setMyClients(clients);
+        setIsLoading(false);
+      });
   }, [ ]);
 
   if(isLoading) {
