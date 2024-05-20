@@ -26,8 +26,6 @@ class Clients {
 
       lastPaymentDate = lastPaymentDate.getAfterDays(30);
 
-      console.log({ date: date.toLocaleString( ), lastPayment: lastPaymentDate.toLocaleString( )})
-
       if(date >= lastPaymentDate) {
         client.payments.push({
           date: lastPaymentDate.toISOString( ),
