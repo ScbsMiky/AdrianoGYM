@@ -12,12 +12,14 @@ import Clients, { clients } from "./globals/contexts/clientsContext";
 
 export default function App( ) {
   const [isLoading, setIsLoading] = useState(true);
-  
+  const [myClients, setMyClients] = useState(clients);
+
   useEffect(( ) => {
     clients.fetchCustumers( )
         .then((custumers) => {
           clients.cache = custumers;
-          
+
+          setMyClients(clients);
           setIsLoading(false);
         });
   }, [ ]);
@@ -31,8 +33,6 @@ export default function App( ) {
       </Container>
     );
   };
-  
-  const [myClients, setMyClients] = useState(clients);
 
   const [welcomeMessage, setWelcomeMessage] = useState({
     message: "",
