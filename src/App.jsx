@@ -11,24 +11,17 @@ import { useContext, useEffect, useState } from "react";
 import Clients, { clients } from "./globals/contexts/clientsContext";
 
 export default function App( ) {
-  const [myClients, setMyClients] = useState(clients);
   const [isLoading, setIsLoading] = useState(true);
-
-  const [welcomeMessage, setWelcomeMessage] = useState({
-    message: "",
-    closed: false
-  });
-
+  
   useEffect(( ) => {
     clients.fetchCustumers( )
-      .then(( ) => {
-        console.log(clients.cache["702270566225"]);
-        console.log(myClients.cache["702270566225"]);
-        setMyClients(clients);
-        setIsLoading(false);
-      });
+        .then((custumers) => {
+          clients.cache = custumers;
+          
+          setIsLoading(false);
+        });
   }, [ ]);
-
+  
   if(isLoading) {
     return (
       <Container>
@@ -38,6 +31,13 @@ export default function App( ) {
       </Container>
     );
   };
+  
+  const [myClients, setMyClients] = useState(clients);
+
+  const [welcomeMessage, setWelcomeMessage] = useState({
+    message: "",
+    closed: false
+  });
 
   return (
     <Clients.Provider value={myClients}>
