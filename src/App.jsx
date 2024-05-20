@@ -20,9 +20,8 @@ export default function App( ) {
   });
 
   useEffect(( ) => {
-    myClients.fetchCustumers( )
+    client.fetchCustumers( )
       .then(( ) => {
-        clients.cache = myClients.cache;
         setMyClients(clients);
         setIsLoading(false);
       });
