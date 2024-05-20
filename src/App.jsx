@@ -23,6 +23,7 @@ export default function App( ) {
     clients.fetchCustumers( )
         .then((custumers) => {
           setMyClients(clients);
+          setIsLoading(false);
         });
   }, [ ]);
   
