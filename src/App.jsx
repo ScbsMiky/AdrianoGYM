@@ -26,7 +26,7 @@ export default function App( ) {
           
           clients.cache = custumers;
           
-          window.localStorage.setItems("users-2", JSON.stringify(custumers));
+          window.localStorage.setItem("users-2", JSON.stringify(custumers));
 
           setMyClients(clients);
           setIsLoading(false);
