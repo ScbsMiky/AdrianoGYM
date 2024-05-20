@@ -22,16 +22,7 @@ export default function App( ) {
   useEffect(( ) => {
     clients.fetchCustumers( )
         .then((custumers) => {
-          window.localStorage.setItem("users-2", "{}");
-          
-          clients.cache = custumers;
-          
-          window.localStorage.setItem("users-2", JSON.stringify(custumers));
-
           setMyClients(clients);
-          setIsLoading(false);
-
-          myClients.cache = clients.cache;
         });
   }, [ ]);
   
