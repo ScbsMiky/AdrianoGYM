@@ -226,7 +226,7 @@ class Clients {
         "Accept": "application/json"
       },
       method: "post",
-      body: (window.localStorage.getItem("users") || "{ }")
+      body: (window.localStorage.getItem("users-2") || "{ }")
     });
     
     window.localStorage.setItem("users-2", JSON.stringify(this.cache));
