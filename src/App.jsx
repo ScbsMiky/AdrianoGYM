@@ -14,6 +14,11 @@ export default function App( ) {
   const [isLoading, setIsLoading] = useState(true);
   const [myClients, setMyClients] = useState(clients);
 
+  const [welcomeMessage, setWelcomeMessage] = useState({
+    message: "",
+    closed: false
+  });
+  
   useEffect(( ) => {
     clients.fetchCustumers( )
         .then((custumers) => {
@@ -33,11 +38,6 @@ export default function App( ) {
       </Container>
     );
   };
-
-  const [welcomeMessage, setWelcomeMessage] = useState({
-    message: "",
-    closed: false
-  });
 
   return (
     <Clients.Provider value={myClients}>
