@@ -5,6 +5,8 @@ export const CustumersStyled = styled.div`
 
   padding: 0 .5rem;
 
+  overflow: auto;
+
   & > .filters {
     display: flex;
     align-items: center;

@@ -16,12 +16,31 @@ function applyNameFilterInCustumer(custumer: Global.CustumerProps, name: string)
   return custumer.public.name.toLowerCase( ).includes(name.toLowerCase( )) || custumer.private.phone.includes(name) || custumer.private.cpf.includes(name) || custumer.private.email.includes(name);
 };
 
-function applyFilterInCustumer(custumer: Global.CustumerProps, filter: number, name: string) {
+function applyFilterInCustumer(custumer: Global.CustumerProps, filter: number, name: string, now: Date) {
   switch(filter){
-    case 1: return !custumer.private.payments.find((payment) => (!payment.payied) && applyNameFilterInCustumer(custumer, name));
-    case 2: return !!custumer.private.payments.find((payment) => (!payment.payied) && applyNameFilterInCustumer(custumer, name));
+    case 1: return checkIsInDay(custumer, now) && applyNameFilterInCustumer(custumer, name);
+    case 2: return !checkIsInDay(custumer, now) && applyNameFilterInCustumer(custumer, name)
+
     default: return applyNameFilterInCustumer(custumer, name);
   };
+};
+
+function checkIsInDay(custumer: Global.CustumerProps, now: Date) {
+  const lastPayment = custumer.private.payments[custumer.private.payments.length - 1];
+
+  const currentPayment = custumer.private.payments.find((payment) => {
+    const date = new Date(payment.payiedAt);
+
+    return now.getFullYear( ) == date.getFullYear( ) && now.getMonth( ) == date.getMonth( );
+  });
+
+  if(currentPayment && currentPayment.payied) return true;
+  else if(lastPayment) {
+    const lastDate = new Date(lastPayment.payiedAt);
+    return lastDate.getMonth( ) == (now.getMonth( ) - 1) && now.getDate( ) <= lastDate.getDate( );
+  };
+
+  return false;
 };
 
 export default function CustumersScreen( ) {
@@ -36,6 +55,7 @@ export default function CustumersScreen( ) {
     initializer: [ ] as Global.CustumerProps[ ]
   });
 
+  const [now] = useState(new Date( ));
   const [name, setName] = useState("");
   const [selectedFilter, setSelectedFilter] = useState(0);
 
@@ -76,20 +96,15 @@ export default function CustumersScreen( ) {
                 </div>
 
                 <div className="content">
-                  {data.data.sort((a, b) => a.public.name.localeCompare(b.public.name)).filter((custumer) => applyFilterInCustumer(custumer, selectedFilter, name)).map((custumer) => {
-                    const hasUnpayied = custumer.private.payments.find((payment) => {
-                      return payment.payied == false;
-                    });
-
-                    const status = custumer.private.payments.length
-                      ? hasUnpayied ? "Atrasado" : "Em dia" : "-"
+                  {data.data.sort((a, b) => a.public.name.localeCompare(b.public.name)).filter((custumer) => applyFilterInCustumer(custumer, selectedFilter, name, now)).map((custumer) => {
+                    let status = custumer.private.payments.length ? checkIsInDay(custumer, now) ? "green" : "red" : "-";
                     
                     return (
-                      <div onClick={( ) => nav(`/custumers/editor?id=${custumer.id}`)} key={`${custumer.id}-${selectedFilter}`} className={status == "Atrasado" ? "red" : status == "Em dia" ? "green" : ""}>
+                      <div onClick={( ) => nav(`/custumers/editor?id=${custumer.id}`)} key={`${custumer.id}-${selectedFilter}`} className={status}>
                         <div><span>{custumer.public.name}</span></div>
                         {/* @ts-ignore */}
                         <div><span>{patterns.phone({ value: custumer.private.phone })}</span></div>
-                        <div><span>{status}</span></div>
+                        <div><span>{status == "-" ? "" : status == "green" ? "Em dia" : "Atrasado"}</span></div>
                       </div>
                     );
                   })}
