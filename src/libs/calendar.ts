@@ -9,8 +9,8 @@ export module Calendar {
     "Julho",
     "Agosto",
     "Setembro",
-    "Novembro",
     "Outubro",
+    "Novembro",
     "Dezembro",
   ];
 
