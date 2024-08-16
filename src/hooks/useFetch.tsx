@@ -14,7 +14,7 @@ export default function useRequest<T>(options: Request.RequestOptions & { initia
   const [error, setError] = useState("");
   const [data, setData] = useState<T>(options.initializer as T);
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const handleFetch = async (options: Request.RequestOptions) => {
     setError("");
