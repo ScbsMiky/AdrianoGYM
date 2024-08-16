@@ -97,14 +97,14 @@ export default function CustumerEditorScreen( ) {
               onChange={handlePaymentSubmit}
             />
           
-            <Button style={{ marginBottom: "0px", background: "#ff3333", color: "white" }} disabled={!!deleteFetcher.loading} onClick={( ) => deleteFetcher.fetch( )}>
+            <Button style={{ marginBottom: "0px", background: "#ff3333", color: "white" }} disabled={!!deleteFetcher.loading} onClick={( ) => deleteFetcher.fetch( ).then(() => deleteFetcher.error ? undefined : nav("/custumers"))}>
                 <span>Deletar</span>
             </Button>
           </>
       }
 
       <div>
-        <span style={{ display: "block", textAlign: "center", color: "#ff4040", marginBottom: ".75rem" }}>{fetcher.error}</span>
+        <span style={{ display: "block", textAlign: "center", color: "#ff4040", marginBottom: ".75rem" }}>{fetcher.error || updateFetcher.error || deleteFetcher.error}</span>
 
         <Button onClick={handleSubmit} center>
           <span>Salvar</span>
