@@ -22,18 +22,18 @@ export default function CustumerEditorScreen( ) {
     headers: { authorization: Global.GetAuthorization( ) },
   });
   
-  const paymentsFetcher = useRequest<{ error?: string; custumer?: Global.CustumerProps }>({
-    method: "POST",
-    url: `${Global.API}/api/payments/update`,
-    initializer: { },
-    headers: { authorization: Global.GetAuthorization( ) },
-  });
-
   const deleteFetcher = useRequest<{ error?: string; }>({
     method: "POST",
     url: `${Global.API}/api/custumers/delete`,
     initializer: { },
     body: { custumerID },
+    headers: { authorization: Global.GetAuthorization( ) },
+  });
+  
+  const paymentsFetcher = useRequest<{ error?: string; custumer?: Global.CustumerProps }>({
+    method: "POST",
+    url: `${Global.API}/api/payments/update`,
+    initializer: { },
     headers: { authorization: Global.GetAuthorization( ) },
   });
 
@@ -115,7 +115,7 @@ export default function CustumerEditorScreen( ) {
       }
 
       <div>
-        <span style={{ display: "block", textAlign: "center", color: "#ff4040", marginBottom: ".75rem" }}>{fetcher.error || updateFetcher.error || deleteFetcher.error}</span>
+        <span style={{ display: "block", textAlign: "center", color: "#ff4040", marginBottom: ".75rem" }}>{fetcher.error || deleteFetcher.error || paymentsFetcher.error}</span>
 
         <Button onClick={handleSubmit} center>
           <span>Salvar</span>
