@@ -96,7 +96,8 @@ export default function CustumerEditorScreen( ) {
               // @ts-ignore
               onChange={handlePaymentSubmit}
             />
-            <Button disabled={deleteFetcher.loading} onClick={( ) => deleteFetcher.fetch( )}>
+          
+            <Button style={{ marginBottom: "0px", background: "#ff3333", color: "white" }} disabled={!!deleteFetcher.loading} onClick={( ) => deleteFetcher.fetch( )}>
                 <span>Deletar</span>
             </Button>
           </>
