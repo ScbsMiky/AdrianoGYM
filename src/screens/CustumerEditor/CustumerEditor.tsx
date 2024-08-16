@@ -39,6 +39,17 @@ export default function CustumerEditorScreen( ) {
 
   const [payments, setPayments] = useState([ ] as Global.PaymentProps[ ]);
 
+  const handleDelete = ( ) => {
+    if(deleteFetcher.loading) return;
+
+    deleteFetcher.fetch( )
+      .then(( ) => {
+        if(deleteFetcher.error) return;
+
+        nav("/custumers");
+      });
+  };
+
   const handleSubmit = ( ) => {
     if(!ref.current || fetcher.loading) return;
 
@@ -97,7 +108,7 @@ export default function CustumerEditorScreen( ) {
               onChange={handlePaymentSubmit}
             />
           
-            <Button style={{ marginBottom: "0px", background: "#ff3333", color: "white" }} disabled={!!deleteFetcher.loading} onClick={( ) => deleteFetcher.fetch( ).then(() => deleteFetcher.error ? undefined : nav("/custumers"))}>
+            <Button style={{ marginBottom: "0px", background: "#ff3333", color: "white" }} disabled={!!deleteFetcher.loading} onClick={handleDelete} center>
                 <span>Deletar</span>
             </Button>
           </>
