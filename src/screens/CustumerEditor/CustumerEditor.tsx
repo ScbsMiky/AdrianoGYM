@@ -29,6 +29,14 @@ export default function CustumerEditorScreen( ) {
     headers: { authorization: Global.GetAuthorization( ) },
   });
 
+  const deleteFetcher = useRequest<{ error?: string; }>({
+    method: "POST",
+    url: `${Global.API}/api/custumers/delete`,
+    initializer: { },
+    body: { custumerID },
+    headers: { authorization: Global.GetAuthorization( ) },
+  });
+
   const [payments, setPayments] = useState([ ] as Global.PaymentProps[ ]);
 
   const handleSubmit = ( ) => {
@@ -80,13 +88,18 @@ export default function CustumerEditorScreen( ) {
         ? <Loading />
         : fetcher.error
         ? <div><span>{fetcher.error}</span></div>
-        : <CustumerField
-            ref={ref}
-            // @ts-ignore
-            custumer={fetcher.data.custumer}
-            // @ts-ignore
-            onChange={handlePaymentSubmit}
-          />
+        : <>
+          <CustumerField
+              ref={ref}
+              // @ts-ignore
+              custumer={fetcher.data.custumer}
+              // @ts-ignore
+              onChange={handlePaymentSubmit}
+            />
+            <Button disabled={deleteFetcher.loading} onClick={( ) => deleteFetcher.fetch( )}>
+                <span>Deletar</span>
+            </Button>
+          </>
       }
 
       <div>
