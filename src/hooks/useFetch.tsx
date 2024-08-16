@@ -1,6 +1,6 @@
 import { Request } from "../libs/request";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"; 
 
 export type UseRequestResponse<T> = {
   data: T;
