@@ -14,6 +14,10 @@ export module Calendar {
     "Dezembro",
   ];
 
+  export function AfterDays(date: Date, after: number) {
+    return new Date(date.getFullYear( ), date.getMonth( ), date.getDate( ) + after);
+  };
+
   export function CreateDayList(date: Date) {
     date = new Date(date.getFullYear( ), date.getMonth( ) + 1, 0);
 
