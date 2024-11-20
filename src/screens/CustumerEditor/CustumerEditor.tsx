@@ -106,6 +106,8 @@ export default function CustumerEditorScreen( ) {
               custumer={fetcher.data.custumer}
               // @ts-ignore
               onChange={handlePaymentSubmit}
+
+              viewMessageSent
             />
           
             <Button style={{ marginBottom: "0px", background: "#ff3333", color: "white" }} disabled={!!deleteFetcher.loading} onClick={handleDelete} center>
