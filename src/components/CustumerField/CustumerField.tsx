@@ -26,6 +26,15 @@ export default forwardRef<HTMLDivElement>((props: ICustumerField, ref) => {
       <Input name="createdAt" label="Data de inscrição" type="date" value={Calendar.DateToInputValue(props.custumer?.createdAt || new Date( ).toISOString( ))} />
       <Input name="bornAt" label="Data de nascimento" type="date" value={Calendar.DateToInputValue(props.custumer?.private.bornAt || new Date( ).toISOString( ))} />
 
+      {
+        props.viewMessageSent
+        ? <>
+            <h1 style={{ marginTop: ".5rem", marginLeft: ".5rem" }}>Mensagem de aviso</h1>
+            <span>Esse usuario ainda não recebeu nenhuma mensagem de aviso em seu Whatsapp</span>
+          </>
+        : <></>
+      }
+
       {props.custumer ? <CustumerPayments onChange={props.onChange} payments={props.custumer.private.payments} /> : <></>}
     </CustumerFieldStyled>
   );
