@@ -30,7 +30,7 @@ export default forwardRef<HTMLDivElement>((props: ICustumerField, ref) => {
         props.viewMessageSent
         ? <>
             <h1 style={{ marginTop: ".5rem", marginLeft: ".5rem" }}>Mensagem de aviso</h1>
-            <span>Esse usuario ainda não recebeu nenhuma mensagem de aviso em seu Whatsapp</span>
+            <span style={{ marginLeft: ".5rem" }}>Esse usuario ainda não recebeu nenhuma mensagem de aviso em seu Whatsapp</span>
           </>
         : <></>
       }
